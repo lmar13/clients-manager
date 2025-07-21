@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+import { FormsComponent } from '../pages/forms/forms.component';
 import { ListComponent } from '../pages/list/list.component';
+import { ClientResolver } from '../resolvers/client.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full' },
@@ -9,10 +11,11 @@ export const routes: Routes = [
   },
   {
     path: 'add',
-    component: ListComponent,
+    component: FormsComponent,
   },
   {
     path: 'edit/:id',
-    component: ListComponent,
+    component: FormsComponent,
+    resolve: { client: ClientResolver },
   },
 ];
