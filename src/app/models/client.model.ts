@@ -5,5 +5,5 @@ export interface Client {
   name: string;
   surname: string;
   phone: number;
-  interests: Interest;
+  interests: Interest[];
 }
