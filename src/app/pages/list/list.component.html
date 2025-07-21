@@ -1,1 +1,8 @@
-<p> list works! </p>
+<p>list works!</p>
+
+<div *ngFor="let client of clients$ | async">
+  <span>{{ client.name }}</span>
+  <span>{{ client.surname }}</span>
+  <span>{{ client.phone }}</span>
+  <span>{{ client.interests }}</span>
+</div>
