@@ -44,7 +44,7 @@ npm run test
 
 Stwórz prostą aplikację w Angularze składającą się z dwóch głównych widoków:
 
-- [ ] **Strona główna** – wyświetla tabelę z danymi klientów.
+- [x] **Strona główna** – wyświetla tabelę z danymi klientów.
 - [ ] **Strona dodawania danych** – umożliwia dodanie nowego klienta w formie wieloetapowego formularza.
 
 ---
@@ -53,11 +53,11 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 ### Strona główna
 
-- [ ] Wyświetla listę klientów w formie tabeli (użyj Angular Material Table).
-- [ ] Dane mogą być przechowywane i pobierane w pamięci przeglądarki lub API (jak masz czas).
-- [ ] Tabela powinna umożliwiać:
-  - [ ] sortowanie,
-  - [ ] filtrowanie
+- [x] Wyświetla listę klientów w formie tabeli (użyj Angular Material Table).
+- [x] Dane mogą być przechowywane i pobierane w pamięci przeglądarki lub API (jak masz czas).
+- [x] Tabela powinna umożliwiać:
+  - [x] sortowanie,
+  - [x] filtrowanie
 
 ### Strona dodawania danych
 
@@ -90,9 +90,9 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 ## ✅ Technologie i wymagania
 
-- [ ] Angular (ostatnia stabilna wersja)
-- [ ] Angular Material (UI komponenty + MatStepper)
+- [x] Angular (ostatnia stabilna wersja)
+- [x] Angular Material (UI komponenty + MatStepper)
 - [ ] Reactive Forms (walidacje, dynamiczne pola)
 - [ ] NgRx (zarządzanie stanem aplikacji – lista klientów)
-- [ ] Angular Router (nawigacja między stronami)
+- [x] Angular Router (nawigacja między stronami)
 
