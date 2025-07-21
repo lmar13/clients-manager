@@ -1,28 +1,22 @@
 import type { Handler } from '@netlify/functions';
-import { eq } from 'drizzle-orm';
 import { db } from '../../db';
-import { clientInterests, clients, interests } from '../../db/schema';
 
 export const handler: Handler = async () => {
   try {
-    const allClients = await db.select().from(clients);
+    const result = await db.query.clients.findMany({
+      with: {
+        interests: {
+          with: {
+            interest: true,
+          },
+        },
+      },
+    });
 
-    const clientsWithInterests = await Promise.all(
-      allClients.map(async client => {
-        const clientInterestLinks = await db
-          .select({
-            interest: interests.name,
-          })
-          .from(clientInterests)
-          .leftJoin(interests, eq(clientInterests.interestId, interests.id))
-          .where(eq(clientInterests.clientId, client.id));
-
-        return {
-          ...client,
-          interests: clientInterestLinks.map(ci => ci.interest),
-        };
-      })
-    );
+    const clientsWithInterests = result.map(client => ({
+      ...client,
+      interests: client.interests.map(link => ({ id: link.interest.id, name: link.interest.name })),
+    }));
 
     return {
       statusCode: 200,

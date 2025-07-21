@@ -32,11 +32,21 @@ export const clientInterests = pgTable(
   })
 );
 
-// Optional: relations for Drizzle (if using drizzle-orm relations)
 export const clientsRelations = relations(clients, ({ many }) => ({
   interests: many(clientInterests),
 }));
 
 export const interestsRelations = relations(interests, ({ many }) => ({
   clients: many(clientInterests),
+}));
+
+export const clientInterestsRelations = relations(clientInterests, ({ one }) => ({
+  client: one(clients, {
+    fields: [clientInterests.clientId],
+    references: [clients.id],
+  }),
+  interest: one(interests, {
+    fields: [clientInterests.interestId],
+    references: [interests.id],
+  }),
 }));
