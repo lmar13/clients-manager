@@ -1,1 +1,55 @@
 GET http://localhost:8888/.netlify/functions/hello
+
+###
+
+GET http://localhost:8888/.netlify/functions/getClients
+
+###
+
+POST http://localhost:8888/.netlify/functions/addClient
+Content-Type: application/json
+
+{
+  "name": "testName1",
+  "surname": "testSurname1",
+  "phone": "123456789",
+  "interestIds": ["1"]
+}
+
+###
+
+PUT http://localhost:8888/.netlify/functions/updateClient?id=4
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "surname": "Nowak",
+  "phone": 11223344
+}
+
+###
+
+DELETE http://localhost:8888/.netlify/functions/deleteClient?id=4
+
+###
+
+GET http://localhost:8888/.netlify/functions/getInterests
+
+###
+
+POST http://localhost:8888/.netlify/functions/addInterest
+Content-Type: application/json
+
+{
+  "name": "programming"
+}
+
+###
+
+DELETE http://localhost:8888/.netlify/functions/removeInterest
+Content-Type: application/json
+
+{
+  "id": 3
+}
+
