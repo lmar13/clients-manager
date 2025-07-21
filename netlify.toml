@@ -2,5 +2,11 @@
   command = "ng build"
   publish = "dist/clients-manager/browser"
 
+[dev]
+  command = "ng serve --configuration development"
+  targetPort = 4200
+  port = 8888
+  framework = "angular"
+
 [functions]
   directory = "netlify/functions"
