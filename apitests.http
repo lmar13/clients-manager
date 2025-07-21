@@ -46,10 +46,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8888/.netlify/functions/removeInterest
-Content-Type: application/json
-
-{
-  "id": 3
-}
-
+DELETE http://localhost:8888/.netlify/functions/removeInterest?id=3
