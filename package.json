@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false --browsers ChromeHeadless",
     "test:watch": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "netlify dev:exec drizzle-kit migrate",
+    "db:studio": "netlify dev:exec drizzle-kit studio"
   },
   "private": true,
   "dependencies": {
@@ -22,10 +25,12 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@netlify/neon": "^0.1.0",
     "@ngrx/effects": "^19.2.1",
     "@ngrx/store": "^19.2.1",
     "@ngrx/store-devtools": "^19.2.1",
     "core-js": "3.44.0",
+    "drizzle-orm": "^0.44.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.15.1"
@@ -38,6 +43,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^24.0.15",
     "angular-eslint": "20.1.1",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.1",
