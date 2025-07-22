@@ -25,13 +25,11 @@ export class Step2Component {
 
   next() {
     this.facade$.update({ interests: this.interests() });
-    console.log('Test next');
     this.router.navigate(['add/step-3']);
   }
 
   prev() {
     this.facade$.update({ interests: this.interests() });
-    console.log('Test prev');
     this.router.navigate(['../step-1'], { relativeTo: this.route });
   }
 
