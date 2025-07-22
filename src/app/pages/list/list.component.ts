@@ -68,7 +68,9 @@ export class ListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(id => {
       if (!id) return;
 
-      this.apiService.removeClient(id);
+      this.apiService.removeClient(id).subscribe(() => {
+        window.location.reload();
+      });
     });
   }
 }

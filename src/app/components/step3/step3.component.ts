@@ -28,7 +28,8 @@ export class Step3Component {
   }
 
   save(data: Partial<Client>) {
-    this.apiService.addClient(data).subscribe();
-    this.router.navigate(['list']);
+    this.apiService.addClient(data).subscribe(() => {
+      this.router.navigate(['list']);
+    });
   }
 }
