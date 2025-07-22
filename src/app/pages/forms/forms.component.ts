@@ -1,16 +1,17 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { NgFor } from '@angular/common';
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
+import { Step1Facade } from '../../store/step1/step1.facade';
+import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade';
 
 @Component({
   selector: 'app-forms',
@@ -25,57 +26,58 @@ import { ApiService } from '../../services/api.service';
     MatChipsModule,
     MatIconModule,
     NgFor,
+    NgIf,
     MatCardModule,
+    RouterOutlet,
   ],
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
 })
 export class FormsComponent implements OnInit {
-  private apiService = inject(ApiService);
+  @ViewChild('stepper') stepper: MatStepper | undefined;
+
+  selectedStepIndex = 0;
+  steps = [
+    { label: 'Personal Info', path: 'step-1' },
+    { label: 'Interests', path: 'step-2' },
+    { label: 'Summary', path: 'step-3' },
+  ];
+
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private _formBuilder = inject(FormBuilder);
-  readonly addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  readonly interests: WritableSignal<string[]> = signal([]);
-
-  firstFormGroup = this._formBuilder.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    phone: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
-  });
+  private facade$ = inject(CurrentStepFacade);
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      const client = data['client'];
-
-      console.log('Forms -> client: ', client);
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      const segment = this.route.firstChild?.snapshot.url[0]?.path;
+      this.selectedStepIndex = this.mapSegmentToIndex(segment);
     });
+
+    this.facade$.current$.subscribe(value => (this.selectedStepIndex = value.currentStep));
   }
 
-  cancel() {
-    this.router.navigate(['/list']);
-  }
-
-  add(event: MatChipInputEvent): void {
-    const name = (event.value || '').trim();
-
-    if (name) {
-      this.interests.update(prev => [...prev, name]);
+  private mapSegmentToIndex(segment: string | undefined): number {
+    switch (segment) {
+      case 'step-1':
+        return 0;
+      case 'step-2':
+        return 1;
+      case 'step-3':
+        return 2;
+      default:
+        return 0;
     }
-
-    event.chipInput!.clear();
   }
 
-  remove(interest: string): void {
-    this.interests.update(prev => {
-      const index = prev.indexOf(interest);
-      if (index < 0) {
-        return prev;
-      }
+  test(event: any) {
+    console.log(event);
+  }
 
-      prev.splice(index, 1);
-      return [...prev];
-    });
+  selectionChanged(event: any) {
+    this.selectedStepIndex = event.selectedIndex;
+    this.facade$.current = event.selectedIndex;
+    const url = 'add/' + this.steps[this.selectedStepIndex].path;
+    console.log(url, this.steps);
+    this.router.navigate([url]);
   }
 }
