@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { NgFor } from '@angular/common';
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +14,7 @@ import { Step2Facade } from '../../store/step2/step2.facade';
   templateUrl: './step2.component.html',
   styleUrl: './step2.component.scss',
 })
-export class Step2Component {
+export class Step2Component implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private facade$ = inject(Step2Facade);
@@ -22,6 +22,12 @@ export class Step2Component {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   readonly addOnBlur = true;
   readonly interests: WritableSignal<string[]> = signal([]);
+
+  ngOnInit(): void {
+    this.facade$.step$.subscribe(value => {
+      this.interests.set(value.interests);
+    });
+  }
 
   next() {
     this.facade$.update({ interests: this.interests() });

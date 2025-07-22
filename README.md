@@ -45,7 +45,7 @@ npm run test
 Stwórz prostą aplikację w Angularze składającą się z dwóch głównych widoków:
 
 - [x] **Strona główna** – wyświetla tabelę z danymi klientów.
-- [ ] **Strona dodawania danych** – umożliwia dodanie nowego klienta w formie wieloetapowego formularza.
+- [x] **Strona dodawania danych** – umożliwia dodanie nowego klienta w formie wieloetapowego formularza.
 
 ---
 
@@ -63,7 +63,7 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 - [x] Formularz podzielony na 3 kroki z możliwością:
   - [x] przechodzenia do kolejnych kroków,
-  - [ ] wracania do poprzednich kroków.
+  - [x] wracania do poprzednich kroków.
 - [x] Wykorzystaj Angular Material Stepper (MatStepper) oraz NgRx.
 - [x] Dane z poszczególnych kroków powinny być przechowywane w formularzu (Reactive Forms).
 
