@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+  <div class="fields-container">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Last name, First name" formControlName="name" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Surname</mat-label>
+      <input matInput placeholder="Last name, First name" formControlName="surname" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input matInput placeholder="Last name, First name" formControlName="phone" required />
+    </mat-form-field>
+  </div>
+  <div>
+    <button matButton matStepperNext type="submit">Next</button>
+  </div>
+</form>
