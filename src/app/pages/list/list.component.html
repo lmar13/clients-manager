@@ -6,7 +6,7 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" class="add-button" (click)="onAdd()">
+    <button mat-fab extended color="primary" class="add-button" (click)="onAdd()">
       <mat-icon>person_add</mat-icon>
       <span>Add New Client</span>
     </button>
@@ -48,10 +48,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef class="actions-header">Actions</th>
         <td mat-cell *matCellDef="let client" class="actions-cell">
-          <button mat-icon-button color="primary" matTooltip="Edit" (click)="onEdit(client.id)">
+          <button mat-mini-fab matTooltip="Edit" (click)="onEdit(client.id)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" matTooltip="Delete" (click)="onDelete(client.id)">
+          <button mat-mini-fab matTooltip="Delete" (click)="openDialog(client)" class="deleteBtn">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

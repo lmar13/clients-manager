@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .container {
   padding: 24px;
 
@@ -70,6 +72,15 @@
         &:hover {
           background-color: rgba(0, 0, 0, 0.05);
         }
+      }
+
+      .deleteBtn {
+        @include mat.fab-overrides(
+          (
+            small-foreground-color: #f70202,
+            small-container-color: #f7a3a3,
+          )
+        );
       }
     }
   }
