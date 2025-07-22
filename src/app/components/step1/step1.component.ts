@@ -18,8 +18,7 @@ export class Step1Component implements OnInit {
   private router = inject(Router);
   private facade$ = inject(Step1Facade);
   private currentStepFacade$ = inject(CurrentStepFacade);
-
-  @Input() form!: FormGroup;
+  form!: FormGroup;
 
   ngOnInit(): void {
     this.form = this.fb.group({

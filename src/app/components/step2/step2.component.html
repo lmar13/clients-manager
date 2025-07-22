@@ -1,9 +1,11 @@
-<div class="fields-container">
+<form [formGroup]="form">
   <mat-form-field class="example-chip-list">
     <mat-label>Interests</mat-label>
-    <mat-chip-grid #chipGrid aria-label="Enter fruits">
-      <mat-chip-row (removed)="remove(interest)" *ngFor="let interest of interests()" [editable]="false"
-        >{{ interest }}
+    <mat-chip-grid #chipGrid aria-label="Enter interests">
+      <mat-chip-row
+        *ngFor="let interestCtrl of interests.controls; let i = index"
+        (removed)="remove(interestCtrl.value)">
+        {{ interestCtrl.value }}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
@@ -16,8 +18,8 @@
         (matChipInputTokenEnd)="add($event)" />
     </mat-chip-grid>
   </mat-form-field>
-</div>
-<div>
-  <button mat-button matStepperPrevious (click)="prev()">Back</button>
-  <button mat-button matStepperNext (click)="next()">Next</button>
-</div>
+  <div>
+    <button mat-button matStepperPrevious (click)="prev()">Back</button>
+    <button mat-button matStepperNext (click)="next()">Next</button>
+  </div>
+</form>

@@ -6,6 +6,6 @@ export const step2Reducer = createReducer(
   initialStep2State,
   on(updateStep2, (state, { interests }) => ({
     ...state,
-    interests: [...state.interests, ...interests],
+    interests,
   }))
 );
