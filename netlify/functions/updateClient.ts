@@ -22,6 +22,7 @@ export const handler: Handler = async event => {
         name: data.name,
         surname: data.surname,
         phone: data.phone,
+        interests: data.interests.join(','),
       })
       .where(eq(clients.id, Number(id)));
 

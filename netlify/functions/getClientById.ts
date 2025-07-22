@@ -22,13 +22,6 @@ export const handler: Handler = async event => {
   try {
     const result = await db.query.clients.findFirst({
       where: eq(clients.id, Number(id)),
-      with: {
-        interests: {
-          with: {
-            interest: true,
-          },
-        },
-      },
     });
 
     if (!result) {
@@ -38,17 +31,9 @@ export const handler: Handler = async event => {
       };
     }
 
-    const clientWithInterests = {
-      ...result,
-      interests: result.interests.map(link => ({
-        id: link.interest.id,
-        name: link.interest.name,
-      })),
-    };
-
     return {
       statusCode: 200,
-      body: JSON.stringify(clientWithInterests),
+      body: JSON.stringify({ ...result, interest: result.interests?.split(',') }),
     };
   } catch (error: unknown) {
     console.error(error);

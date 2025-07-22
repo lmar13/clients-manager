@@ -3,24 +3,11 @@ import { db } from '../../db';
 
 export const handler: Handler = async () => {
   try {
-    const result = await db.query.clients.findMany({
-      with: {
-        interests: {
-          with: {
-            interest: true,
-          },
-        },
-      },
-    });
-
-    const clientsWithInterests = result.map(client => ({
-      ...client,
-      interests: client.interests.map(link => ({ id: link.interest.id, name: link.interest.name })),
-    }));
+    const result = await db.query.clients.findMany();
 
     return {
       statusCode: 200,
-      body: JSON.stringify(clientsWithInterests),
+      body: JSON.stringify(result.map(client => ({ ...client, interests: client.interests?.split(',') }))),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

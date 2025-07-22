@@ -1,28 +1,22 @@
 import type { Handler } from '@netlify/functions';
 import { db } from '../../db';
-import { clientInterests, clients } from '../../db/schema';
+import { clients } from '../../db/schema';
 
 export const handler: Handler = async event => {
   try {
-    const { name, surname, phone, interestIds } = JSON.parse(event.body || '{}');
+    const { name, surname, phone, interests } = JSON.parse(event.body || '{}');
 
-    if (!name || !surname || !Array.isArray(interestIds)) {
+    if (!name || !surname || !Array.isArray(interests)) {
       return {
         statusCode: 400,
         body: JSON.stringify({ message: 'Invalid input' }),
       };
     }
 
-    const [newClient] = await db.insert(clients).values({ name, surname, phone }).returning({ id: clients.id });
-
-    if (newClient) {
-      const linkValues = interestIds.map((interestId: number) => ({
-        clientId: newClient.id,
-        interestId,
-      }));
-
-      await db.insert(clientInterests).values(linkValues);
-    }
+    await db
+      .insert(clients)
+      .values({ name, surname, phone, interests: interests.join(',') })
+      .returning({ id: clients.id });
 
     return {
       statusCode: 201,
