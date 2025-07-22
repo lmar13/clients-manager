@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideStore } from '@ngrx/store';
 import { Step1Component } from './step1.component';
 
 describe('Step1Component', () => {
@@ -8,9 +9,9 @@ describe('Step1Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Step1Component]
-    })
-    .compileComponents();
+      imports: [Step1Component],
+      providers: [provideStore()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Step1Component);
     component = fixture.componentInstance;

@@ -1,4 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
+import { initialCurrentStepState } from '../../store/currentStep/currentStep.state';
+import { initialStep1State } from '../../store/step1/step1.state';
+import { initialStep2State } from '../../store/step2/step2.state';
 import { FormsComponent } from './forms.component';
 
 describe('FormsComponent', () => {
@@ -8,7 +14,18 @@ describe('FormsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsComponent],
-      providers: [],
+      providers: [
+        provideMockStore({
+          initialState: { currentStep: initialCurrentStepState, step1: initialStep1State, step2: initialStep2State },
+        }),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({}),
+            snapshot: { paramMap: { get: () => null } },
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormsComponent);
