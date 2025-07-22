@@ -41,9 +41,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Client>();
 
   ngOnInit() {
-    this.clients$.subscribe(clients => {
-      this.dataSource.data = clients;
-    });
+    this.refreshClients();
   }
 
   applyFilter(event: Event) {
@@ -69,8 +67,14 @@ export class ListComponent implements OnInit, AfterViewInit {
       if (!id) return;
 
       this.apiService.removeClient(id).subscribe(() => {
-        window.location.reload();
+        this.refreshClients();
       });
+    });
+  }
+
+  private refreshClients() {
+    this.clients$.subscribe(clients => {
+      this.dataSource.data = clients;
     });
   }
 }
