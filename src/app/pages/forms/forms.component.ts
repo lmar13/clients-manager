@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +11,6 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { Step1Facade } from '../../store/step1/step1.facade';
-import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade';
 
 @Component({
   selector: 'app-forms',
@@ -29,6 +28,7 @@ import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade'
     NgIf,
     MatCardModule,
     RouterOutlet,
+    AsyncPipe,
   ],
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
@@ -45,15 +45,15 @@ export class FormsComponent implements OnInit {
 
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private facade$ = inject(CurrentStepFacade);
+  private step1Facade$ = inject(Step1Facade);
+
+  isStep1Valid$ = this.step1Facade$.valid$;
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       const segment = this.route.firstChild?.snapshot.url[0]?.path;
       this.selectedStepIndex = this.mapSegmentToIndex(segment);
     });
-
-    this.facade$.current$.subscribe(value => (this.selectedStepIndex = value.currentStep));
   }
 
   private mapSegmentToIndex(segment: string | undefined): number {
@@ -75,7 +75,6 @@ export class FormsComponent implements OnInit {
 
   selectionChanged(event: any) {
     this.selectedStepIndex = event.selectedIndex;
-    this.facade$.current = event.selectedIndex;
     const url = 'add/' + this.steps[this.selectedStepIndex].path;
     console.log(url, this.steps);
     this.router.navigate([url]);

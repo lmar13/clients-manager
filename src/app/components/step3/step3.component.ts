@@ -4,7 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Client } from '../../models/client.model';
+import { ApiService } from '../../services/api.service';
 import { FormFacade } from '../../store/form.facade';
+import { Step1Facade } from '../../store/step1/step1.facade';
 
 @Component({
   selector: 'app-step3',
@@ -15,7 +17,10 @@ import { FormFacade } from '../../store/form.facade';
 export class Step3Component {
   private router = inject(Router);
   private facade$ = inject(FormFacade);
+  private step1Facade$ = inject(Step1Facade);
+  private apiService = inject(ApiService);
   readonly data$ = this.facade$.data$;
+  readonly isValidToSave = this.step1Facade$.valid$;
 
   prev() {
     console.log('Test next');
@@ -23,6 +28,7 @@ export class Step3Component {
   }
 
   save(data: Partial<Client>) {
-    console.log(data);
+    this.apiService.addClient(data).subscribe();
+    this.router.navigate(['list']);
   }
 }

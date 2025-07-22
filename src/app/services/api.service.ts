@@ -17,15 +17,15 @@ export class ApiService {
     return this.http.get<Client>(`getClientById?id=${id}`);
   }
 
-  addClient(data: Client) {
-    this.http.post<Client>(`addClient`, data);
+  addClient(data: Partial<Client>) {
+    return this.http.post<Client>(`addClient`, data);
   }
 
   updateClient(id: string, data: Client) {
-    this.http.put<Client>(`updateClient?id=${id}`, data);
+    return this.http.put<Client>(`updateClient?id=${id}`, data);
   }
 
   removeClient(id: string) {
-    this.http.delete<string>(`removeClient?id=${id}`);
+    return this.http.delete<string>(`removeClient?id=${id}`);
   }
 }
