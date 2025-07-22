@@ -31,16 +31,4 @@ export class ApiService {
   removeClient(id: string) {
     this.http.delete<string>(`${this.baseUrl}/removeClient?id=${id}`);
   }
-
-  getInterest(): Observable<Interest[]> {
-    return this.http.get<Interest[]>(`${this.baseUrl}/getInterests`);
-  }
-
-  addInterest(data: Interest) {
-    this.http.post<Interest>(`${this.baseUrl}/addInterest`, data);
-  }
-
-  removeInterest(id: string) {
-    this.http.delete<string>(`${this.baseUrl}/removeInterest?id=${id}`);
-  }
 }
