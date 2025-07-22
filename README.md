@@ -61,11 +61,11 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 ### Strona dodawania danych
 
-- [ ] Formularz podzielony na 3 kroki z możliwością:
-  - [ ] przechodzenia do kolejnych kroków,
+- [x] Formularz podzielony na 3 kroki z możliwością:
+  - [x] przechodzenia do kolejnych kroków,
   - [ ] wracania do poprzednich kroków.
-- [ ] Wykorzystaj Angular Material Stepper (MatStepper) oraz NgRx.
-- [ ] Dane z poszczególnych kroków powinny być przechowywane w formularzu (Reactive Forms).
+- [x] Wykorzystaj Angular Material Stepper (MatStepper) oraz NgRx.
+- [x] Dane z poszczególnych kroków powinny być przechowywane w formularzu (Reactive Forms).
 
 ---
 
@@ -73,18 +73,18 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 ### Krok 1: Dane podstawowe
 
-- [ ] Imię (pole wymagane)
-- [ ] Nazwisko (pole wymagane)
-- [ ] Numer telefonu (pole wymagane, walidacja na numer telefonu)
+- [x] Imię (pole wymagane)
+- [x] Nazwisko (pole wymagane)
+- [x] Numer telefonu (pole wymagane, walidacja na numer telefonu)
 
 ### Krok 2: Zainteresowania
 
-- [ ] Dynamiczna lista zainteresowań (możliwość dodawania/usuwania pól).
+- [x] Dynamiczna lista zainteresowań (możliwość dodawania/usuwania pól).
 
 ### Krok 3: Podsumowanie
 
-- [ ] Wyświetlenie wszystkich wprowadzonych danych w formie podsumowania.
-- [ ] Przycisk „Zapisz” zapisuje dane do: NgRx Store oraz/lub localStorage.
+- [x] Wyświetlenie wszystkich wprowadzonych danych w formie podsumowania.
+- [x] Przycisk „Zapisz” zapisuje dane do: NgRx Store oraz/lub localStorage.
 
 ---
 
