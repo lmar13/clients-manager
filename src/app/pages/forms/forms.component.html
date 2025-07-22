@@ -1,0 +1,64 @@
+<mat-stepper linear="false" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <div class="fields-container">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="name" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Surname</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="surname" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Phone</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="phone" required />
+        </mat-form-field>
+      </div>
+      <div>
+        <button matButton matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Fill out your address">
+    <div class="fields-container">
+      <mat-form-field class="example-chip-list">
+        <mat-label>Interests</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter fruits">
+          <mat-chip-row (removed)="remove(interest)" *ngFor="let interest of interests()" [editable]="false"
+            >{{ interest }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input
+            placeholder="New interest..."
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-grid>
+      </mat-form-field>
+    </div>
+    <div>
+      <button matButton matStepperPrevious>Back</button>
+      <button matButton matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <mat-card class="summary-card">
+      <mat-card-title>Client Summary</mat-card-title>
+      <mat-card-content>
+        <div class="summary-item"><strong>Name:</strong> {{ firstFormGroup.value.name }}</div>
+        <div class="summary-item"><strong>Surname:</strong> {{ firstFormGroup.value.surname }}</div>
+        <div class="summary-item"><strong>Phone:</strong> {{ firstFormGroup.value.phone }}</div>
+        <div class="summary-item"><strong>Interests:</strong> {{ interests().join(', ') || '—' }}</div>
+      </mat-card-content>
+    </mat-card>
+    <div>
+      <button matButton matStepperPrevious>Back</button>
+      <button matButton (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
