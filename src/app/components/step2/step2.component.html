@@ -1,1 +1,23 @@
-<p>step2 works!</p>
+<div class="fields-container">
+  <mat-form-field class="example-chip-list">
+    <mat-label>Interests</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter fruits">
+      <mat-chip-row (removed)="remove(interest)" *ngFor="let interest of interests()" [editable]="false"
+        >{{ interest }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <input
+        placeholder="New interest..."
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)" />
+    </mat-chip-grid>
+  </mat-form-field>
+</div>
+<div>
+  <button mat-button matStepperPrevious (click)="prev()">Back</button>
+  <button mat-button matStepperNext (click)="next()">Next</button>
+</div>

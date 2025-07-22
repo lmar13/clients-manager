@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Step1Facade } from '../../store/step1/step1.facade';
+import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade';
 
 @Component({
   selector: 'app-step1',
@@ -11,23 +13,35 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './step1.component.html',
   styleUrl: './step1.component.scss',
 })
-export class Step1Component {
+export class Step1Component implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  private facade$ = inject(Step1Facade);
+  private currentStepFacade$ = inject(CurrentStepFacade);
 
-  form = this.fb.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    phone: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
-  });
+  @Input() form!: FormGroup;
 
-  onSubmit() {
-    console.log(this.form.value);
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
+    });
+
+    this.facade$.step$.subscribe(data => {
+      this.form.patchValue(data);
+    });
+  }
+
+  next() {
+    this.currentStepFacade$.current = 0;
     if (this.form.valid) {
-      // this.store.dispatch(saveStep1Data({ data: this.form.value }));
-      console.log('Test');
-      this.router.navigate(['../step-2'], { relativeTo: this.route });
+      this.facade$.update({
+        name: this.form.value.name!,
+        surname: this.form.value.surname!,
+        phone: this.form.value.phone!,
+      });
+      this.router.navigate(['add/step-2']);
     }
   }
 }

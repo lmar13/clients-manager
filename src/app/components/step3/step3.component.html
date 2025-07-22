@@ -1,1 +1,15 @@
-<p>step3 works!</p>
+<ng-container *ngIf="data$ | async as data">
+  <mat-card class="summary-card">
+    <mat-card-title>Client Summary</mat-card-title>
+    <mat-card-content>
+      <div class="summary-item"><strong>Name:</strong> {{ data.name }}</div>
+      <div class="summary-item"><strong>Surname:</strong> {{ data.surname }}</div>
+      <div class="summary-item"><strong>Phone:</strong> {{ data.phone }}</div>
+      <div class="summary-item"><strong>Interests:</strong> {{ data.interests.join(', ') }}</div>
+    </mat-card-content>
+  </mat-card>
+  <div>
+    <button mat-button matStepperPrevious (click)="prev()">Back</button>
+    <button mat-button matStepperNext (click)="save(data)">Save</button>
+  </div>
+</ng-container>
