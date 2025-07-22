@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,8 +24,6 @@ import { Step1Facade } from '../../store/step1/step1.facade';
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
-    NgFor,
-    NgIf,
     MatCardModule,
     RouterOutlet,
     AsyncPipe,

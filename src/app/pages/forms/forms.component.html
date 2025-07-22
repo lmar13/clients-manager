@@ -3,7 +3,11 @@
   [selectedIndex]="selectedStepIndex"
   (selectionChange)="selectionChanged($event)"
   (selectedIndexChange)="test($event)">
-  <mat-step *ngFor="let step of steps; let i = index" [label]="step.label" [hasError]="i === 0 && (isStep1Valid$ | async) === false">
-    <router-outlet *ngIf="i === selectedStepIndex"></router-outlet>
-  </mat-step>
+  @for (step of steps; track step.path; let i = $index) {
+    <mat-step [label]="step.label" [hasError]="i === 0 && (isStep1Valid$ | async) === false">
+      @if (i === selectedStepIndex) {
+        <router-outlet></router-outlet>
+      }
+    </mat-step>
+  }
 </mat-horizontal-stepper>

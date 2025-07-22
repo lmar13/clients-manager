@@ -2,14 +2,14 @@
   <mat-form-field class="example-chip-list">
     <mat-label>Interests</mat-label>
     <mat-chip-grid #chipGrid aria-label="Enter interests">
-      <mat-chip-row
-        *ngFor="let interestCtrl of interests.controls; let i = index"
-        (removed)="remove(interestCtrl.value)">
-        {{ interestCtrl.value }}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
+      @for (interestCtrl of interests.controls; track interestCtrl; let i = $index) {
+        <mat-chip-row (removed)="remove(interestCtrl.value)">
+          {{ interestCtrl.value }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
       <input
         placeholder="New interest..."
         [matChipInputFor]="chipGrid"

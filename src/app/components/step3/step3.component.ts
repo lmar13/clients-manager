@@ -1,5 +1,5 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Step1Facade } from '../../store/step1/step1.facade';
 
 @Component({
   selector: 'app-step3',
-  imports: [MatCardModule, AsyncPipe, NgIf, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule],
   templateUrl: './step3.component.html',
   styleUrl: './step3.component.scss',
 })
@@ -19,8 +19,8 @@ export class Step3Component {
   private facade$ = inject(FormFacade);
   private step1Facade$ = inject(Step1Facade);
   private apiService = inject(ApiService);
-  readonly data$ = this.facade$.data$;
-  readonly isValidToSave = this.step1Facade$.valid$;
+  readonly data = toSignal(this.facade$.data$);
+  readonly isValidToSave = toSignal(this.step1Facade$.valid$);
 
   prev() {
     console.log('Test next');
