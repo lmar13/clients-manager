@@ -92,7 +92,7 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 - [x] Angular (ostatnia stabilna wersja)
 - [x] Angular Material (UI komponenty + MatStepper)
-- [ ] Reactive Forms (walidacje, dynamiczne pola)
+- [x] Reactive Forms (walidacje, dynamiczne pola)
 - [ ] NgRx (zarządzanie stanem aplikacji – lista klientów)
 - [x] Angular Router (nawigacja między stronami)
 
