@@ -9,9 +9,11 @@
     - [GitHub](#github)
     - [Hosting](#hosting)
   - [Local version](#local-version)
+    - [Requirements](#requirements)
     - [Install deps](#install-deps)
     - [Development environment](#development-environment)
     - [Testing locally](#testing-locally)
+    - [Docs locally](#docs-locally)
   - [TODO List](#todo-list)
   - [✅ Cel](#-cel)
   - [✅ Struktura aplikacji](#-struktura-aplikacji)
@@ -32,6 +34,8 @@
 - **Deployment:** Hosted on Netlify with a custom domain.
 - **RWD Support:** Landscape view for better readability of the client table.
 
+Note: Project is hard to test locally due to the need for a database connection. It uses Drizzle ORM with SQLite and Netlify Dev for local development (https://docs.netlify.com/cli/get-started/#install-the-netlify-cli). Without a proper database setup, some features may not work as expected.
+
 ## Demo
 
 ### GitHub
@@ -43,6 +47,10 @@ Repository URL: https://github.com/lmar13/clients-manager
 Remote URL -> [cmanager.lmarciniak.xyz](https://cmanager.lmarciniak.xyz/) -> hosted app on netlify and redirected to my subdomain
 
 ## Local version
+
+### Requirements
+- Node.js (>=18)
+- Netlify CLI (`npm install -g netlify-cli`)
 
 ### Install deps
 
@@ -57,10 +65,10 @@ npm install
 To start a local version of app, run:
 
 ```bash
-npm run start
+netlify dev --auth=PROVIDED_AUTH_TOKEN
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`
+Once the server is running, open your browser and navigate to `http://localhost:8888/`
 
 ### Testing locally
 
@@ -69,6 +77,16 @@ To run test locally, run:
 ```bash
 npm run test
 ```
+
+### Docs locally
+
+To show documentation locally, run:
+
+```bash
+npm run docs:serve
+```
+
+Once the server is running, open your browser and navigate to `http://127.0.0.1:8080`.
 
 ## TODO List
 
