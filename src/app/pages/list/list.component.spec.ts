@@ -1,6 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { ApiService } from '../../services/api.service';
+import { ClientsFacade } from '../../store/clients/clients.facade';
 import { ListComponent } from './list.component';
 
 describe('ListComponent', () => {
@@ -10,7 +12,12 @@ describe('ListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ListComponent],
-      providers: [ApiService, provideHttpClient()],
+      providers: [
+        ApiService,
+        provideHttpClient(),
+        ClientsFacade,
+        provideMockStore({ initialState: { clients: { clients: [] } } }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListComponent);
