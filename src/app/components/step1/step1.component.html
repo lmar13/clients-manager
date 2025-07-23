@@ -3,17 +3,26 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput placeholder="Last name, First name" formControlName="name" required />
+      @if (form.controls['name'].invalid && form.controls['name'].touched) {
+        <mat-error>{{ nameErrorMessage() }}</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Surname</mat-label>
       <input matInput placeholder="Last name, First name" formControlName="surname" required />
+      @if (form.controls['surname'].invalid && form.controls['surname'].touched) {
+        <mat-error>{{ surnameErrorMessage() }}</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
       <input matInput placeholder="Last name, First name" formControlName="phone" required />
+      @if (form.controls['phone'].invalid && form.controls['phone'].touched) {
+        <mat-error>{{ phoneErrorMessage() }}</mat-error>
+      }
     </mat-form-field>
   </div>
   <div>
-    <button mat-button matStepperNext type="submit" (click)="next()">Next</button>
+    <button mat-button matStepperNext type="submit" (click)="next()" [disabled]="form.invalid">Next</button>
   </div>
 </form>
