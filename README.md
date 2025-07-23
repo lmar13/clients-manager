@@ -1,5 +1,37 @@
 # Client Manager
 
+## Table of Contents
+
+- [Client Manager](#client-manager)
+  - [Table of Contents](#table-of-contents)
+  - [Project Information](#project-information)
+  - [Demo](#demo)
+    - [GitHub](#github)
+    - [Hosting](#hosting)
+  - [Local version](#local-version)
+    - [Install deps](#install-deps)
+    - [Development environment](#development-environment)
+    - [Testing locally](#testing-locally)
+  - [TODO List](#todo-list)
+  - [✅ Cel](#-cel)
+  - [✅ Struktura aplikacji](#-struktura-aplikacji)
+    - [Strona główna](#strona-główna)
+    - [Strona dodawania danych](#strona-dodawania-danych)
+  - [✅ Kroki formularza](#-kroki-formularza)
+    - [Krok 1: Dane podstawowe](#krok-1-dane-podstawowe)
+    - [Krok 2: Zainteresowania](#krok-2-zainteresowania)
+    - [Krok 3: Podsumowanie](#krok-3-podsumowanie)
+  - [✅ Technologie i wymagania](#-technologie-i-wymagania)
+  - [✅ Dodatkowe wymagania](#-dodatkowe-wymagania)
+
+## Project Information
+
+- **Name:** Clients Manager
+- **Description:** A simple Angular application for managing clients.
+- **Technologies:** Angular, Angular Material, NgRx, Reactive Forms
+- **Deployment:** Hosted on Netlify with a custom domain.
+- **RWD Support:** Landscape view for better readability of the client table.
+
 ## Demo
 
 ### GitHub
@@ -102,3 +134,4 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 - [x] Custom phone validator
 - [ ] Tests
 - [x] Effect and error handling
+- [x] Widok landscape dla RWD (w portrait ciężko jest czytać tabelę)
