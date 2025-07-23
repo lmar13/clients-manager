@@ -17,7 +17,7 @@ import { Step2Facade } from '../../store/step2/step2.facade';
 export class Step2Component implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private facade$ = inject(Step2Facade);
+  private step2Facade = inject(Step2Facade);
 
   form!: FormGroup;
 
@@ -29,7 +29,7 @@ export class Step2Component implements OnInit {
       interests: this.fb.array([]),
     });
 
-    this.facade$.step$.subscribe(value => {
+    this.step2Facade.step$.subscribe(value => {
       const interests = value.interests || [];
       const array = this.form.get('interests') as FormArray;
       interests.forEach(i => array.push(new FormControl(i)));
@@ -37,12 +37,12 @@ export class Step2Component implements OnInit {
   }
 
   next() {
-    this.facade$.update({ interests: this.interests.value });
+    this.step2Facade.update({ interests: this.interests.value });
     this.router.navigate(['add/step-3']);
   }
 
   prev() {
-    this.facade$.update({ interests: this.interests.value });
+    this.step2Facade.update({ interests: this.interests.value });
     this.router.navigate(['add/step-1']);
   }
 

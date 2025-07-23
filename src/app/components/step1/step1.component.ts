@@ -16,7 +16,7 @@ import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade'
 export class Step1Component implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private facade$ = inject(Step1Facade);
+  private step1Facade = inject(Step1Facade);
   private currentStepFacade$ = inject(CurrentStepFacade);
   form!: FormGroup;
 
@@ -27,7 +27,7 @@ export class Step1Component implements OnInit {
       phone: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
     });
 
-    this.facade$.step$.subscribe(data => {
+    this.step1Facade.step$.subscribe(data => {
       this.form.patchValue(data);
     });
   }
@@ -35,7 +35,7 @@ export class Step1Component implements OnInit {
   next() {
     this.currentStepFacade$.current = 0;
     if (this.form.valid) {
-      this.facade$.update({
+      this.step1Facade.update({
         name: this.form.value.name!,
         surname: this.form.value.surname!,
         phone: this.form.value.phone!,
