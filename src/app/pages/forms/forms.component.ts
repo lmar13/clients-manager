@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
-import { Step1Facade } from '../../store/step1/step1.facade';
+import { FormFacade } from '../../store/form.facade';
 
 @Component({
   selector: 'app-forms',
@@ -43,9 +43,9 @@ export class FormsComponent implements OnInit {
 
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private step1Facade = inject(Step1Facade);
+  private formFacade = inject(FormFacade);
 
-  isStep1Valid$ = this.step1Facade.valid$;
+  isFormValid$ = this.formFacade.valid$;
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
@@ -76,7 +76,7 @@ export class FormsComponent implements OnInit {
   }
 
   cancelAndGoBack() {
-    // Możesz też tu dodać reset danych formularza, jeśli potrzebujesz
+    this.formFacade.clear();
     this.router.navigate(['list']);
   }
 }

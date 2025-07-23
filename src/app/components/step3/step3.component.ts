@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Client } from '../../models/client.model';
 import { ClientsFacade } from '../../store/clients/clients.facade';
 import { FormFacade } from '../../store/form.facade';
-import { Step1Facade } from '../../store/step1/step1.facade';
 
 @Component({
   selector: 'app-step3',
@@ -17,10 +16,9 @@ import { Step1Facade } from '../../store/step1/step1.facade';
 export class Step3Component {
   private router = inject(Router);
   private formFacade = inject(FormFacade);
-  private step1Facade = inject(Step1Facade);
   private clientsFacade = inject(ClientsFacade);
   readonly data = toSignal(this.formFacade.data$);
-  readonly isValidToSave = toSignal(this.step1Facade.valid$);
+  readonly isFormValid = toSignal(this.formFacade.valid$);
 
   prev() {
     this.router.navigate(['add/step-2']);

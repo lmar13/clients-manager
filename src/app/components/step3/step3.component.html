@@ -9,5 +9,5 @@
 </mat-card>
 <div>
   <button mat-button matStepperPrevious (click)="prev()">Back</button>
-  <button mat-button matStepperNext [disabled]="isValidToSave() === false" (click)="save(data()!)">Save</button>
+  <button mat-button matStepperNext [disabled]="isFormValid() === false" (click)="save(data()!)">Save</button>
 </div>

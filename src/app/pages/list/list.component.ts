@@ -12,6 +12,7 @@ import { ConfirmationDialog } from '../../components/confirmation-dialog/confira
 import { Client } from '../../models/client.model';
 import { InterestsNamesPipe } from '../../shared/pipes/interests-names.pipe';
 import { ClientsFacade } from '../../store/clients/clients.facade';
+import { FormFacade } from '../../store/form.facade';
 
 @Component({
   selector: 'app-list',
@@ -32,6 +33,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private clientsFacade = inject(ClientsFacade);
+  private formFacade = inject(FormFacade);
   displayedColumns = ['index', 'name', 'surname', 'phone', 'interest', 'actions'];
   @ViewChild(MatSort) sort!: MatSort;
   loading = false;
@@ -61,6 +63,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   onAdd() {
+    this.formFacade.clear();
     this.router.navigate(['/add']);
   }
 

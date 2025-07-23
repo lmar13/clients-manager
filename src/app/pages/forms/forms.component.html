@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear="true" [selectedIndex]="selectedStepIndex" (selectionChange)="selectionChanged($event)">
   @for (step of steps; track step.path; let i = $index) {
-    <mat-step [label]="step.label" [hasError]="i === 0 && (isStep1Valid$ | async) === false">
+    <mat-step [label]="step.label" [hasError]="i === 0 && (isFormValid$ | async) === false">
       @if (i === selectedStepIndex) {
         <router-outlet></router-outlet>
       }
