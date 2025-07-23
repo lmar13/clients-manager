@@ -1,9 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { phoneNumberValidator } from '../../shared/validators/phone-number.validator';
 import { Step1Facade } from '../../store/step1/step1.facade';
 import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade';
 
@@ -24,7 +25,7 @@ export class Step1Component implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
+      phone: ['', [Validators.required, phoneNumberValidator()]],
     });
 
     this.step1Facade.step$.subscribe(data => {
