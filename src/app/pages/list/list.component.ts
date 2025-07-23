@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { ConfirmationDialog } from '../../components/confirmation-dialog/confira
 import { Client } from '../../models/client.model';
 import { ApiService } from '../../services/api.service';
 import { InterestsNamesPipe } from '../../shared/pipes/interests-names.pipe';
+import { ClientsFacade } from '../../store/clients/clients.facade';
 
 @Component({
   selector: 'app-list',
@@ -22,6 +24,7 @@ import { InterestsNamesPipe } from '../../shared/pipes/interests-names.pipe';
     MatInputModule,
     InterestsNamesPipe,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -30,19 +33,25 @@ export class ListComponent implements OnInit, AfterViewInit {
   private apiService = inject(ApiService);
   private router = inject(Router);
   private dialog = inject(MatDialog);
-  clients$ = this.apiService.getClients();
+  private clientsFacade = inject(ClientsFacade);
   displayedColumns = ['index', 'name', 'surname', 'phone', 'interest', 'actions'];
   @ViewChild(MatSort) sort!: MatSort;
+  loading = false;
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.clientsFacade.setClients();
+    this.clientsFacade.clients$.subscribe(clients => {
+      this.dataSource.data = clients.clients;
+      this.loading = false;
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
   dataSource = new MatTableDataSource<Client>();
-
-  ngOnInit() {
-    this.refreshClients();
-  }
 
   applyFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -66,15 +75,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(id => {
       if (!id) return;
 
-      this.apiService.removeClient(id).subscribe(() => {
-        this.refreshClients();
-      });
-    });
-  }
-
-  private refreshClients() {
-    this.clients$.subscribe(clients => {
-      this.dataSource.data = clients;
+      this.clientsFacade.removeClient(id);
     });
   }
 }
