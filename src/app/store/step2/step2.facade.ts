@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { updateStep2 } from './step2.actions';
+import { clearStep2State, updateStep2 } from './step2.actions';
 import { selectStep2 } from './step2.selector';
 import { Step2State } from './step2.state';
 
@@ -14,5 +14,9 @@ export class Step2Facade {
 
   update(data: Step2State) {
     this.store.dispatch(updateStep2(data));
+  }
+
+  clear() {
+    this.store.dispatch(clearStep2State());
   }
 }

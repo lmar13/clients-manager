@@ -2,23 +2,32 @@ import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { Client } from '../models/client.model';
-import { updateStep1 } from './step1/step1.actions';
-import { selectStep1 } from './step1/step1.selector';
-import { updateStep2 } from './step2/step2.actions';
-import { selectStep2 } from './step2/step2.selector';
+import { Step1Facade } from './step1/step1.facade';
+import { Step2Facade } from './step2/step2.facade';
 
 @Injectable({ providedIn: 'root' })
 export class FormFacade {
   private store = inject(Store);
+  private step1Facade = inject(Step1Facade);
+  private step2Facade = inject(Step2Facade);
 
   get data$() {
-    return combineLatest([this.store.select(selectStep1), this.store.select(selectStep2)]).pipe(
+    return combineLatest([this.step1Facade.step$, this.step2Facade.step$]).pipe(
       map(([step1, step2]) => ({ ...step1, ...step2 }))
     );
   }
 
   set data(data: Client) {
-    this.store.dispatch(updateStep1({ name: data.name, surname: data.surname, phone: data.phone }));
-    this.store.dispatch(updateStep2({ interests: data.interests }));
+    this.step1Facade.update({ name: data.name, surname: data.surname, phone: data.phone });
+    this.step2Facade.update({ interests: data.interests });
+  }
+
+  clear() {
+    this.step1Facade.clear();
+    this.step2Facade.clear();
+  }
+
+  get valid$() {
+    return this.step1Facade.valid$;
   }
 }
