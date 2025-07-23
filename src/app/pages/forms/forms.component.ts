@@ -43,9 +43,9 @@ export class FormsComponent implements OnInit {
 
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private step1Facade$ = inject(Step1Facade);
+  private step1Facade = inject(Step1Facade);
 
-  isStep1Valid$ = this.step1Facade$.valid$;
+  isStep1Valid$ = this.step1Facade.valid$;
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
@@ -76,5 +76,10 @@ export class FormsComponent implements OnInit {
     const url = 'add/' + this.steps[this.selectedStepIndex].path;
     console.log(url, this.steps);
     this.router.navigate([url]);
+  }
+
+  cancelAndGoBack() {
+    // Możesz też tu dodać reset danych formularza, jeśli potrzebujesz
+    this.router.navigate(['list']);
   }
 }
