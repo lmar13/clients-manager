@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,24 +16,22 @@ import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade'
   templateUrl: './step1.component.html',
   styleUrl: './step1.component.scss',
 })
-export class Step1Component implements OnInit {
+export class Step1Component {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private step1Facade = inject(Step1Facade);
   private currentStepFacade$ = inject(CurrentStepFacade);
-  form!: FormGroup;
+  form: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    phone: ['', [Validators.required, phoneNumberValidator()]],
+  });
 
   nameErrorMessage = signal('');
   surnameErrorMessage = signal('');
   phoneErrorMessage = signal('');
 
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      phone: ['', [Validators.required, phoneNumberValidator()]],
-    });
-
+  constructor() {
     this.step1Facade.step$.subscribe(data => {
       this.form.patchValue(data);
     });
