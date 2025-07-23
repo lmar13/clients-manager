@@ -2,22 +2,37 @@
   <div class="fields-container">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Last name, First name" formControlName="name" required />
-      @if (form.controls['name'].invalid && form.controls['name'].touched) {
+      <input
+        matInput
+        placeholder="Last name, First name"
+        formControlName="name"
+        required
+        (blur)="updateNameMessage()" />
+      @if (form.controls['name'].invalid) {
         <mat-error>{{ nameErrorMessage() }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Surname</mat-label>
-      <input matInput placeholder="Last name, First name" formControlName="surname" required />
-      @if (form.controls['surname'].invalid && form.controls['surname'].touched) {
+      <input
+        matInput
+        placeholder="Last name, First name"
+        formControlName="surname"
+        required
+        (blur)="updateSurnameMessage()" />
+      @if (form.controls['surname'].invalid) {
         <mat-error>{{ surnameErrorMessage() }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput placeholder="Last name, First name" formControlName="phone" required />
-      @if (form.controls['phone'].invalid && form.controls['phone'].touched) {
+      <input
+        matInput
+        placeholder="Last name, First name"
+        formControlName="phone"
+        required
+        (blur)="updatePhoneMessage()" />
+      @if (form.controls['phone'].invalid) {
         <mat-error>{{ phoneErrorMessage() }}</mat-error>
       }
     </mat-form-field>

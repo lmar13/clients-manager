@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +30,7 @@ import { FormFacade } from '../../store/form.facade';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class ListComponent {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private clientsFacade = inject(ClientsFacade);
@@ -38,17 +39,14 @@ export class ListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   loading = false;
 
-  ngOnInit(): void {
+  constructor() {
     this.loading = true;
     this.clientsFacade.setClients();
-    this.clientsFacade.clients$.subscribe(clients => {
+    this.clientsFacade.clients$.pipe(takeUntilDestroyed()).subscribe(clients => {
       this.dataSource.data = clients.clients;
+      this.dataSource.sort = this.sort;
       this.loading = false;
     });
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
   }
 
   dataSource = new MatTableDataSource<Client>();
