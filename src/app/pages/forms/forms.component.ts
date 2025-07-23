@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,7 +32,7 @@ import { FormFacade } from '../../store/form.facade';
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
 })
-export class FormsComponent implements OnInit {
+export class FormsComponent {
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
   selectedStepIndex = 0;
@@ -47,11 +48,16 @@ export class FormsComponent implements OnInit {
 
   isFormValid$ = this.formFacade.valid$;
 
-  ngOnInit() {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      const segment = this.route.firstChild?.snapshot.url[0]?.path;
-      this.selectedStepIndex = this.mapSegmentToIndex(segment);
-    });
+  constructor() {
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        const segment = this.route.firstChild?.snapshot.url[0]?.path;
+        this.selectedStepIndex = this.mapSegmentToIndex(segment);
+      });
   }
 
   private mapSegmentToIndex(segment: string | undefined): number {

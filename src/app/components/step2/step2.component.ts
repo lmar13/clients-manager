@@ -1,6 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,22 +15,20 @@ import { Step2Facade } from '../../store/step2/step2.facade';
   templateUrl: './step2.component.html',
   styleUrl: './step2.component.scss',
 })
-export class Step2Component implements OnInit {
+export class Step2Component {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private step2Facade = inject(Step2Facade);
 
-  form!: FormGroup;
+  form = this.fb.group({
+    interests: this.fb.array([]),
+  });
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   readonly addOnBlur = true;
 
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      interests: this.fb.array([]),
-    });
-
-    this.step2Facade.step$.subscribe(value => {
+  constructor() {
+    this.step2Facade.step$.pipe(takeUntilDestroyed()).subscribe(value => {
       const interests = value.interests || [];
       const array = this.form.get('interests') as FormArray;
       interests.forEach(i => array.push(new FormControl(i)));

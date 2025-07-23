@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, DestroyRef, inject, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { ConfirmationDialog } from '../../components/confirmation-dialog/confiramtion-dialog.component';
 import { Client } from '../../models/client.model';
 import { InterestsNamesPipe } from '../../shared/pipes/interests-names.pipe';
@@ -35,6 +36,7 @@ export class ListComponent {
   private dialog = inject(MatDialog);
   private clientsFacade = inject(ClientsFacade);
   private formFacade = inject(FormFacade);
+  private destroyRef = inject(DestroyRef);
   displayedColumns = ['index', 'name', 'surname', 'phone', 'interest', 'actions'];
   @ViewChild(MatSort) sort!: MatSort;
   loading = false;
@@ -71,10 +73,13 @@ export class ListComponent {
       width: '250px',
     });
 
-    dialogRef.afterClosed().subscribe(id => {
-      if (!id) return;
+    dialogRef
+      .afterClosed()
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe(id => {
+        if (!id) return;
 
-      this.clientsFacade.removeClient(id);
-    });
+        this.clientsFacade.removeClient(id);
+      });
   }
 }
