@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "netlify dev:exec drizzle-kit migrate",
-    "db:studio": "netlify dev:exec drizzle-kit studio"
+    "db:studio": "netlify dev:exec drizzle-kit studio",
+    "docs:serve": "compodoc -p tsconfig.app.json -s"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,7 @@
     "@angular-eslint/template-parser": "^20.1.1",
     "@angular/cli": "^19.2.15",
     "@angular/compiler-cli": "^19.2.0",
+    "@compodoc/compodoc": "^1.1.26",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^24.0.15",
     "angular-eslint": "20.1.1",
