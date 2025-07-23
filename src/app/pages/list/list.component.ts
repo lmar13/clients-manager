@@ -10,7 +10,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ConfirmationDialog } from '../../components/confirmation-dialog/confiramtion-dialog.component';
 import { Client } from '../../models/client.model';
-import { ApiService } from '../../services/api.service';
 import { InterestsNamesPipe } from '../../shared/pipes/interests-names.pipe';
 import { ClientsFacade } from '../../store/clients/clients.facade';
 
@@ -30,7 +29,6 @@ import { ClientsFacade } from '../../store/clients/clients.facade';
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit, AfterViewInit {
-  private apiService = inject(ApiService);
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private clientsFacade = inject(ClientsFacade);
