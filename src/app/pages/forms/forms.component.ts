@@ -67,10 +67,7 @@ export class FormsComponent implements OnInit {
     }
   }
 
-  test(event: any) {
-    console.log(event);
-  }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectionChanged(event: any) {
     this.selectedStepIndex = event.selectedIndex;
     const url = 'add/' + this.steps[this.selectedStepIndex].path;

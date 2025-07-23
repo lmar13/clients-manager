@@ -55,6 +55,7 @@ export class ClientsEffects {
     this.actions$.pipe(
       ofType(getClients),
       withLatestFrom(this.store),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       mergeMap(([_, state]) => {
         const clients = state.clients.clients;
         return clients && clients.length > 0 ? of(loadClients({ clients })) : of(loadClientsFromApi());

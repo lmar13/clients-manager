@@ -19,11 +19,13 @@ describe('apiUrlInterceptor', () => {
     environment.apiUrl = 'https://api.example.com';
 
     const fakeRequest = new HttpRequest('GET', 'clients');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const next = jasmine.createSpy().and.callFake((req: HttpRequest<any>) => req);
 
     interceptor(fakeRequest, next);
 
     expect(next).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const modifiedRequest = next.calls.mostRecent().args[0] as HttpRequest<any>;
     expect(modifiedRequest.url).toBe('https://api.example.com/clients');
   });
