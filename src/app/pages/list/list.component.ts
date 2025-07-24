@@ -45,7 +45,7 @@ export class ListComponent {
     this.loading = true;
     this.clientsFacade.setClients();
     this.clientsFacade.clients$.pipe(takeUntilDestroyed()).subscribe(clients => {
-      this.dataSource.data = clients.clients;
+      this.dataSource.data = clients;
       this.dataSource.sort = this.sort;
       this.loading = false;
     });

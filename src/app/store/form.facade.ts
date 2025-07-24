@@ -7,7 +7,6 @@ import { Step2Facade } from './step2/step2.facade';
 
 @Injectable({ providedIn: 'root' })
 export class FormFacade {
-  private store = inject(Store);
   private step1Facade = inject(Step1Facade);
   private step2Facade = inject(Step2Facade);
 
