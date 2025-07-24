@@ -4,6 +4,7 @@ import { initialStep2State, Step2State } from './step2.state';
 
 describe('step2Reducer', () => {
   it('should return the initial state when an unknown action is dispatched', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const action = { type: 'UNKNOWN' } as any;
     const state = step2Reducer(undefined, action);
     expect(state).toEqual(initialStep2State);

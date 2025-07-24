@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { Client } from '../models/client.model';
 import { Step1Facade } from './step1/step1.facade';
