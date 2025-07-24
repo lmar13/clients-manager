@@ -77,7 +77,6 @@ export class FormsComponent {
   selectionChanged(event: any) {
     this.selectedStepIndex = event.selectedIndex;
     const url = 'add/' + this.steps[this.selectedStepIndex].path;
-    console.log(url, this.steps);
     this.router.navigate([url]);
   }
 

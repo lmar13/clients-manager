@@ -67,6 +67,11 @@
         text-align: center;
       }
 
+      .mat-column-phone {
+        text-align: right;
+        font-family: monospace;
+      }
+
       button[mat-icon-button] {
         transition: background-color 0.2s ease-in-out;
         &:hover {

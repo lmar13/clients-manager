@@ -2,42 +2,27 @@
   <div class="fields-container">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input
-        matInput
-        placeholder="Last name, First name"
-        formControlName="name"
-        required
-        (blur)="updateNameMessage()" />
+      <input matInput placeholder="First name" formControlName="name" required (blur)="updateNameMessage()" />
       @if (form.controls['name'].invalid) {
         <mat-error>{{ nameErrorMessage() }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Surname</mat-label>
-      <input
-        matInput
-        placeholder="Last name, First name"
-        formControlName="surname"
-        required
-        (blur)="updateSurnameMessage()" />
+      <input matInput placeholder="Last name" formControlName="surname" required (blur)="updateSurnameMessage()" />
       @if (form.controls['surname'].invalid) {
         <mat-error>{{ surnameErrorMessage() }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input
-        matInput
-        placeholder="Last name, First name"
-        formControlName="phone"
-        required
-        (blur)="updatePhoneMessage()" />
+      <input matInput placeholder="Phone number" formControlName="phone" required (blur)="updatePhoneMessage()" />
       @if (form.controls['phone'].invalid) {
         <mat-error>{{ phoneErrorMessage() }}</mat-error>
       }
     </mat-form-field>
   </div>
-  <div>
+  <div style="margin-top: 20px;">
     <button mat-button matStepperNext type="submit" (click)="next()" [disabled]="form.invalid">Next</button>
   </div>
 </form>

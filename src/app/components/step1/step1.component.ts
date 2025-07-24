@@ -85,7 +85,7 @@ export class Step1Component {
       this.phoneErrorMessage.set('Phone is required');
     }
     if (control?.hasError('invalidPhone')) {
-      this.phoneErrorMessage.set('Invalid phone number');
+      this.phoneErrorMessage.set('Invalid phone number, must be in format 123456789, optional prefix +48 or 0048');
     }
     return '';
   }
