@@ -32,6 +32,8 @@
 - **Description:** A simple Angular application for managing clients.
 - **Technologies:** Angular, Angular Material, NgRx, Reactive Forms
 - **Deployment:** Hosted on Netlify with a custom domain.
+- **Database:**  Hosted on Neon (PostgreSQL), and connected with Netlify via plugin. Uses Drizzle ORM with SQLite for data management.
+- **Netlify Functions:** Used for serverless functions to handle backend logic.
 - **RWD Support:** Landscape view for better readability of the client table.
 
 Note: Project is hard to test locally due to the need for a database connection. It uses Drizzle ORM with SQLite and Netlify Dev for local development (https://docs.netlify.com/cli/get-started/#install-the-netlify-cli). Without a proper database setup, some features may not work as expected.
@@ -62,7 +64,7 @@ npm install
 
 ### Development environment
 
-To start a local version of app, run:
+To start a local version of app, run. `PROVIDED_AUTH_TOKEN` should be replaced with token provided by email:
 
 ```bash
 netlify dev --auth=PROVIDED_AUTH_TOKEN
