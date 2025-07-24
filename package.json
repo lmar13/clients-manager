@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false --browsers ChromeHeadless",
+    "test": "ng test --watch=false --browsers ChromeHeadless --code-coverage",
     "test:watch": "ng test --browsers ChromeHeadless",
     "lint": "ng lint",
     "db:generate": "drizzle-kit generate",
