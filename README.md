@@ -150,6 +150,6 @@ Stwórz prostą aplikację w Angularze składającą się z dwóch głównych wi
 
 - [x] Lazy loading
 - [x] Custom phone validator
-- [ ] Tests
+- [x] Tests
 - [x] Effect and error handling
 - [x] Widok landscape dla RWD (w portrait ciężko jest czytać tabelę)
