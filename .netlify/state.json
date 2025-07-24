@@ -1,0 +1,21 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Lodz",
+			"country": {
+				"code": "PL",
+				"name": "Poland"
+			},
+			"subdivision": {
+				"code": "10",
+				"name": "Łódź Voivodeship"
+			},
+			"timezone": "Europe/Warsaw",
+			"latitude": 51.7697,
+			"longitude": 19.446,
+			"postalCode": "90-629"
+		},
+		"timestamp": 1753291174409
+	},
+	"siteId": "717aa877-d18c-4c3a-97b8-b57252ce81fe"
+}

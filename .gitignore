@@ -44,6 +44,8 @@ Thumbs.db
 # src/environments/environment.ts
 
 # Local Netlify folder
-.netlify
+.netlify/*
+!netlify/
+!.netlify/state.json
 
 documentation
