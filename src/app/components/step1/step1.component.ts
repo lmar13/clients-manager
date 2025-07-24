@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { merge } from 'rxjs';
 import { phoneNumberValidator } from '../../shared/validators/phone-number.validator';
 import { Step1Facade } from '../../store/step1/step1.facade';
-import { CurrentStepFacade } from './../../store/currentStep/currentStep.facade';
 
 @Component({
   selector: 'app-step1',
@@ -20,7 +19,6 @@ export class Step1Component {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private step1Facade = inject(Step1Facade);
-  private currentStepFacade$ = inject(CurrentStepFacade);
   form: FormGroup = this.fb.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
@@ -50,7 +48,6 @@ export class Step1Component {
   }
 
   next() {
-    this.currentStepFacade$.current = 0;
     if (this.form.valid) {
       this.step1Facade.update({
         name: this.form.value.name!,
